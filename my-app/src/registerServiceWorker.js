@@ -19,8 +19,10 @@ const isLocalhost = Boolean(
 );
 
 export default function register() {
+  // eslint-disable-next-line no-undef
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
+    // eslint-disable-next-line no-undef
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
@@ -30,6 +32,7 @@ export default function register() {
     }
 
     window.addEventListener('load', () => {
+      // eslint-disable-next-line no-undef
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
