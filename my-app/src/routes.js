@@ -1,23 +1,27 @@
-//  import React from 'react'
-//  import { Route, IndexRoute } from 'react-router'
+import React from 'react';
+import { Switch, Route } from 'react-router';
 
 /**
  * Import all page components here
  */
-// import App from "./components/App";
-// import MainPage from './components/MainPage';
+import App from './containers/App/index';
+//  import MainPage from './containers/MainPage';
 // import SomePage from './components/SomePage';
 // import SomeOtherPage from './components/SomeOtherPage';
 
 /**
  * All routes go here.
  * Don't forget to import the components above after adding new route.
+ *
  */
+export function Routes() {
+  return (
+    <div>
+      <Switch>
+        <Route exact path="/" component={App} />
+      </Switch>
+    </div>
+  );
+}
 
-/** export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={MainPage} />
-    <Route path="/some/where" component={SomePage} />
-    <Route path="/some/otherpage" component={SomeOtherPage} />
-  </Route>
-); */
+export default Routes;
