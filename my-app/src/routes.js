@@ -4,8 +4,8 @@ import { Switch, Route } from 'react-router';
 /**
  * Import all page components here
  */
-import App from './containers/App/index';
-//  import MainPage from './containers/MainPage';
+//import App from './containers/App/index';
+import MainPage from './containers/MainPage/index';
 // import SomePage from './components/SomePage';
 // import SomeOtherPage from './components/SomeOtherPage';
 
@@ -18,7 +18,7 @@ export function Routes() {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={App} />
+        <Route exact path="/" component={MainPage} />
       </Switch>
     </div>
   );
