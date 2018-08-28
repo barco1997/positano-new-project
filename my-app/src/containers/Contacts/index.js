@@ -29,10 +29,10 @@ import styled from 'styled-components';
 //  import * as Yup from 'yup';
 import NavBar from '../../components/NavBar/index';
 import Footer from '../../components/Footer/index';
+import GoogleMapsContainer from '../../components/GoogleMapsContainer/index';
 //  import CouponHistory from '../../components/CouponHistory';
 //  import GoodHistory from '../../components/GoodHistory';
 // import messages from './messages';
-import background from './main.png';
 
 const CouponInfoWrapper = styled.div`
   width: 100%;
@@ -47,15 +47,8 @@ const BackGround = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
-`;
-const Image = styled.div`
-  background-image: url(${props => props.back}); /* The image used */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover;
-  height: 100%;
-  min-height: 100vh;
-  /* The image used */
+
+  background-color: #fcfcfc; /* The image used */
 `;
 
 const StyledBar = styled.div`
@@ -71,8 +64,33 @@ const StyledFooter = styled.div`
   align-self: flex-end;
 `;
 
+const InfoWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Century Gothic';
+  font-size: 25px;
+  text-decoration: none;
+  color: black;
+
+  justify-content: center;
+  flex-wrap: wrap;
+  line-height: 35px;
+  margin-top: 55vh;
+  & > :nth-child(1) {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  & > :nth-child(2) {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+`;
+
 /* eslint-disable react/prefer-stateless-function */
-export class MainPage extends React.Component {
+export class Contacts extends React.Component {
   //  constructor(props, context) {
   //  super(props, context);
   //    this.state = {
@@ -89,11 +107,28 @@ export class MainPage extends React.Component {
     return (
       <CouponInfoWrapper>
         <StyledBar>
-          <NavBar color="rgba(255, 255, 255, 0.89)" />
+          <NavBar />
         </StyledBar>
         <BackGround>
-          <Image back={background} />
-
+          <div style={{ height: '100%', minHeight: '100vh' }}>
+            <div style={{ paddingTop: '140px' }}>
+              <GoogleMapsContainer />
+            </div>
+            <InfoWrapper>
+              <div>
+                Адрес: ул. Гоголя 83, г. Брест
+                <br />
+                Эмейл: b7951401@gmail.com <br />
+                Телефон: +375297951401 <br />
+              </div>
+              <div>
+                Пн-Пт: 10:00-18:00
+                <br />
+                Сб: 10:00-16:00
+                <br />
+              </div>
+            </InfoWrapper>
+          </div>
           <StyledFooter>
             <Footer />
           </StyledFooter>
@@ -103,4 +138,4 @@ export class MainPage extends React.Component {
   }
 }
 
-export default MainPage;
+export default Contacts;

@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 // Your routes.js file
 import Routes from './routes';
 import './fonts/fonts.css';
+import './global-styles.js';
 ReactDOM.render(
   <BrowserRouter>
     <Routes />

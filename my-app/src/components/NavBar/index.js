@@ -35,12 +35,16 @@ import { Link } from 'react-router-dom';
 
 const NavBarWrapper = styled.div`
   width: 100%;
-  height: 90px;
+  height: 88px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: rgba(255, 255, 255, 0.89);
+  background: ${props => (props.color ? props.color : 'white')};
+
   font-family: 'Century Gothic';
+  border-style: ${props => (props.color ? 'none' : 'solid')};
+  border-width: 0px 0px 1px 0px;
+  border-color: #eee7e1;
 `;
 
 const Logo = styled(Link)`
@@ -80,12 +84,12 @@ export class NavBar extends React.Component {
   //}
   render() {
     return (
-      <NavBarWrapper>
+      <NavBarWrapper color={this.props.color}>
         <Logo to="/">ПОЗИТАНО</Logo>
         <Menu>
           <MenuItem to="/">О компании</MenuItem>
           <MenuItem to="/">Продукция</MenuItem>
-          <MenuItem to="/">Контакты</MenuItem>
+          <MenuItem to="/contacts">Контакты</MenuItem>
         </Menu>
       </NavBarWrapper>
     );
