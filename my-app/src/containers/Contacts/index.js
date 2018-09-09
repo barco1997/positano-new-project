@@ -69,14 +69,14 @@ const InfoWrapper = styled.div`
   display: flex;
   flex-direction: row;
   font-family: 'Century Gothic';
-  font-size: 25px;
+  font-size: 19px;
   text-decoration: none;
   color: black;
 
   justify-content: center;
   flex-wrap: wrap;
   line-height: 35px;
-  margin-top: 55vh;
+  margin-top: 57vh;
   & > :nth-child(1) {
     margin-left: 20px;
     margin-right: 20px;
@@ -111,7 +111,7 @@ export class Contacts extends React.Component {
         </StyledBar>
         <BackGround>
           <div style={{ height: '100%', minHeight: '100vh' }}>
-            <div style={{ paddingTop: '140px' }}>
+            <div style={{ paddingTop: '90px' }}>
               <GoogleMapsContainer />
             </div>
             <InfoWrapper>

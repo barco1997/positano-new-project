@@ -9,7 +9,10 @@ import React from 'react';
 
 //  import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-
+import Drawer from 'react-motion-drawer';
+import { media } from '../../utils/media';
+import MenuWrapper from '../MenuWrapper/index';
+import MenuItem from '../MenuItem/index';
 //  import SendButton from 'components/SendButton';
 //  import EyelandTagBlock from 'components/EyelandTagBlock';
 //  import SocialTagBlock from 'components/SocialTagBlock';
@@ -33,9 +36,74 @@ import styled from 'styled-components';
 // import messages from './messages';
 import { Link } from 'react-router-dom';
 
+const Burger = styled.div`
+  margin: 0;
+  padding: 0;
+
+  display: block;
+
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: rotate(0deg);
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+  span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: rgba(111, 111, 111, 1);
+    border-radius: 7px;
+    opacity: 1;
+    right: 0;
+    transform: rotate(0deg);
+    transition: 0.25s ease-in-out;
+  }
+  span:nth-child(1) {
+    top: 1px;
+  }
+  span:nth-child(2),
+  span:nth-child(3) {
+    top: 8px;
+  }
+  span:nth-child(4) {
+    top: 15px;
+  }
+
+  ${props =>
+    props.open &&
+    `span:nth-child(1) {
+      top: 8px;
+      width: 0%;
+      right: 50%;
+    }
+    span:nth-child(2),
+    span:nth-child(3) {
+      top: 8px;
+    }
+    span:nth-child(2) {
+      transform: rotate(45deg);
+    }
+    span:nth-child(3) {
+      transform: rotate(-45deg);
+    }
+    span:nth-child(4) {
+      top: 8px;
+      width: 0%;
+      right: 50%;
+    } `};
+`;
+
+const StyledDrawer = styled(Drawer)`
+  background: white;
+  display: none;
+  ${media.desktop`display: block;`};
+`;
+
 const NavBarWrapper = styled.div`
   width: 100%;
-  height: 88px;
+  height: 70px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -48,7 +116,7 @@ const NavBarWrapper = styled.div`
 `;
 
 const Logo = styled(Link)`
-  font-size: 25px;
+  font-size: 20px;
   text-decoration: none;
   color: black;
 `;
@@ -56,16 +124,17 @@ const Logo = styled(Link)`
 const Menu = styled.div`
   display: flex;
   justify-content: flex-start;
-  font-size: 20px;
+  font-size: 15px;
   margin: 0px -15px;
   & > * {
     margin: 0px 15px;
   }
 `;
 
-const MenuItem = styled(Link)`
+const NavMenuItem = styled(Link)`
   text-decoration: none;
   color: black;
+  ${media.desktop`display: none;`};
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -77,19 +146,53 @@ export class NavBar extends React.Component {
   //  };
   //  this.getId = this.getId.bind(this);
   //}
-
+  state = {
+    openLeft: false,
+  };
   //getId() {
   // const currentLocation = this.props.location.pathname.slice(14);
   // return currentLocation;
   //}
   render() {
+    const isOpen = this.state.openLeft;
     return (
       <NavBarWrapper color={this.props.color}>
-        <Logo to="/">ПОЗИТАНО</Logo>
+        <Logo to="/main">ПОЗИТАНО</Logo>
         <Menu>
-          <MenuItem to="/">О компании</MenuItem>
-          <MenuItem to="/">Продукция</MenuItem>
-          <MenuItem to="/contacts">Контакты</MenuItem>
+          <NavMenuItem to="/main">О&nbsp;компании</NavMenuItem>
+          <NavMenuItem to="/main">Продукция</NavMenuItem>
+          <NavMenuItem to="/contacts">Контакты</NavMenuItem>
+          <Burger
+            open={isOpen}
+            onClick={() => this.setState({ openLeft: !isOpen })}
+          >
+            <span />
+            <span />
+            <span />
+            <span />
+          </Burger>
+          <StyledDrawer
+            right={true}
+            width={300}
+            fadeOut
+            open={isOpen}
+            onChange={open => this.setState({ openLeft: open })}
+            noTouchOpen={false}
+            noTouchClose={false}
+          >
+            <div style={{ width: '100%' }}>
+              <div style={{ padding: '2em' }}>
+                <MenuWrapper>
+                  <MenuItem to="/main" activeClassName="selected">
+                    О компании
+                  </MenuItem>
+                  <MenuItem to="/contacts" activeClassName="selected">
+                    Контакты
+                  </MenuItem>
+                </MenuWrapper>
+              </div>
+            </div>
+          </StyledDrawer>
         </Menu>
       </NavBarWrapper>
     );

@@ -50,7 +50,7 @@ const BackGround = styled.div`
 `;
 const Image = styled.div`
   background-image: url(${props => props.back}); /* The image used */
-  background-position: center; /* Center the image */
+  /*background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
   height: 100%;

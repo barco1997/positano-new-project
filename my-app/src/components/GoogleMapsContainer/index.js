@@ -15,7 +15,7 @@ export class GoogleMapsContainer extends React.Component {
         google={this.props.google}
         zoom={16}
         style={style}
-        initialCenter={{ lat: 52.093919, lng: 23.705672 }}
+        initialCenter={{ lat: 52.094283, lng: 23.706361 }}
       >
         <Marker onClick={this.onMarkerClick} name={'Current location'} />
 

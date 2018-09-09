@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
 
 /**
  * Import all page components here
@@ -27,7 +27,8 @@ export function Routes() {
   return (
     <AppWrapper>
       <Switch>
-        <Route exact path="/" component={MainPage} />
+        <Redirect from="/" exact to="/main" />
+        <Route exact path="/main" component={MainPage} />
         <Route exact path="/contacts" component={Contacts} />
       </Switch>
     </AppWrapper>

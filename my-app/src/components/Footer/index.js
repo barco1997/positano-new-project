@@ -25,7 +25,7 @@ import styled from 'styled-components';
 //  import CouponHistory from '../../components/CouponHistory';
 //  import GoodHistory from '../../components/GoodHistory';
 // import messages from './messages';
-import { Link } from 'react-router-dom';
+//  import { Link } from 'react-router-dom';
 
 const FooterWrapper = styled.div`
   width: 100%;
@@ -35,9 +35,9 @@ const FooterWrapper = styled.div`
   align-items: center;
   background: #545454;
   font-family: 'Century Gothic';
-  padding: 5px;
+  padding: 0px 5px;
   & > * {
-    margin: 5px;
+    margin: 0px 5px;
   }
 `;
 
@@ -46,11 +46,15 @@ const Address = styled.div`
   color: #d7d4d4;
 `;
 
-const Copyrights = styled(Link)`
-  display: flex;
+const Copyrights = styled.div`
   text-decoration: none;
   color: #d7d4d4;
   font-size: 12px;
+`;
+
+const Credit = styled.a`
+  text-decoration: none;
+  color: #d7d4d4;
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -71,8 +75,16 @@ export class Footer extends React.Component {
     return (
       <FooterWrapper>
         <Address to="/">ул Гоголя 83, г. Брест</Address>
-        <Copyrights to="https://www.flaticon.com/">
-          Copywrights Positano, Icon made by srip from www.flaticon.com
+        <Copyrights>
+          Copywrights Positano, Icon made by{' '}
+          <Credit
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.flaticon.com/authors/freepik"
+          >
+            Freepik
+          </Credit>{' '}
+          from www.flaticon.com
         </Copyrights>
       </FooterWrapper>
     );
