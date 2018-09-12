@@ -160,7 +160,7 @@ export class NavBar extends React.Component {
         <Logo to="/main">ПОЗИТАНО</Logo>
         <Menu>
           <NavMenuItem to="/main">О&nbsp;компании</NavMenuItem>
-          <NavMenuItem to="/main">Продукция</NavMenuItem>
+          <NavMenuItem to="/products">Продукция</NavMenuItem>
           <NavMenuItem to="/contacts">Контакты</NavMenuItem>
           <Burger
             open={isOpen}
@@ -185,6 +185,9 @@ export class NavBar extends React.Component {
                 <MenuWrapper>
                   <MenuItem to="/main" activeClassName="selected">
                     О компании
+                  </MenuItem>
+                  <MenuItem to="/products" activeClassName="selected">
+                    Продукция
                   </MenuItem>
                   <MenuItem to="/contacts" activeClassName="selected">
                     Контакты

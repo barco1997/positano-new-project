@@ -7,6 +7,7 @@ import { Switch, Route, Redirect } from 'react-router';
 //import App from './containers/App/index';
 import MainPage from './containers/MainPage/index';
 import Contacts from './containers/Contacts/index';
+import Products from './containers/Products/index';
 // import SomePage from './components/SomePage';
 // import SomeOtherPage from './components/SomeOtherPage';
 import styled from 'styled-components';
@@ -29,6 +30,7 @@ export function Routes() {
       <Switch>
         <Redirect from="/" exact to="/main" />
         <Route exact path="/main" component={MainPage} />
+        <Route exact path="/products" component={Products} />
         <Route exact path="/contacts" component={Contacts} />
       </Switch>
     </AppWrapper>

@@ -118,7 +118,7 @@ export class Contacts extends React.Component {
               <div>
                 Адрес: ул. Гоголя 83, г. Брест
                 <br />
-                Эмейл: b7951401@gmail.com <br />
+                Эмейл: gbarchuk@mail.ru <br />
                 Телефон: +375297951401 <br />
               </div>
               <div>
