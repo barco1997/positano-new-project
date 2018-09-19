@@ -13,12 +13,17 @@ import styled from 'styled-components';
 import { media } from '../../utils/media';
 //  import MenuWrapper from '../MenuWrapper/index';
 //  import MenuItem from '../MenuItem/index';
-
+import image1 from './image1.svg';
+import image2 from './image2.svg';
+import image3 from './image3.svg';
+import image4 from './image4.svg';
+import image5 from './image5.svg';
+import image6 from './image6.svg';
 import { Link } from 'react-router-dom';
 
 const NavBarWrapper = styled.div`
   width: 100%;
-  height: 80px;
+  height: 90px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -33,8 +38,8 @@ const NavBarWrapper = styled.div`
 const Menu = styled.div`
   width: 70%;
   display: flex;
-  justify-content: flex-start;
-  font-size: 15px;
+  justify-content: center;
+  font-size: 13px;
   margin: 0px -15px;
   & > * {
     margin: 0px 15px;
@@ -45,11 +50,23 @@ const NavMenuItem = styled(Link)`
   text-decoration: none;
   color: black;
   display: flex;
+  flex-direction: column;
   flex: 1;
-  justify-content: center;
+
+  align-items: center;
   ${media.desktop`display: none;`};
 `;
 
+const MenuImg = styled.img`
+  margin-top: 3px;
+  width: 46px;
+`;
+
+const MenuText = styled.div`
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+`;
 /* eslint-disable react/prefer-stateless-function */
 export class ProductsBar extends React.Component {
   //  constructor(props, context) {
@@ -68,12 +85,30 @@ export class ProductsBar extends React.Component {
     return (
       <NavBarWrapper color={this.props.color}>
         <Menu>
-          <NavMenuItem to="/main">Сантехника</NavMenuItem>
-          <NavMenuItem to="/main">Плитка</NavMenuItem>
-          <NavMenuItem to="/main">Паркет</NavMenuItem>
-          <NavMenuItem to="/main">Мебель</NavMenuItem>
-          <NavMenuItem to="/main">Кухни</NavMenuItem>
-          <NavMenuItem to="/main">Свет</NavMenuItem>
+          <NavMenuItem to="/main">
+            <MenuImg src={image1} alt="image" />
+            <MenuText>Сантехника</MenuText>
+          </NavMenuItem>
+          <NavMenuItem to="/main">
+            <MenuImg src={image2} alt="image" />
+            <MenuText>Плитка</MenuText>
+          </NavMenuItem>
+          <NavMenuItem to="/main">
+            <MenuImg src={image3} alt="image" />
+            <MenuText>Паркет</MenuText>
+          </NavMenuItem>
+          <NavMenuItem to="/main">
+            <MenuImg src={image4} alt="image" />
+            <MenuText>Мебель</MenuText>
+          </NavMenuItem>
+          <NavMenuItem to="/main">
+            <MenuImg src={image5} alt="image" />
+            <MenuText>Кухни</MenuText>
+          </NavMenuItem>
+          <NavMenuItem to="/main">
+            <MenuImg src={image6} alt="image" />
+            <MenuText>Свет</MenuText>
+          </NavMenuItem>
         </Menu>
       </NavBarWrapper>
     );
