@@ -29,7 +29,14 @@ import styled from 'styled-components';
 //  import * as Yup from 'yup';
 import NavBar from '../../components/NavBar/index';
 import ProductsBar from '../../components/ProductsBar/index';
+import ProductItem from '../../components/ProductItem/index';
 import Footer from '../../components/Footer/index';
+import background1 from './background1.png';
+import background2 from './background2.png';
+import background3 from './background3.png';
+import background4 from './background4.png';
+import background5 from './background5.png';
+import background6 from './background6.png';
 //  import GoogleMapsContainer from '../../components/GoogleMapsContainer/index';
 //  import CouponHistory from '../../components/CouponHistory';
 //  import GoodHistory from '../../components/GoodHistory';
@@ -66,27 +73,23 @@ const StyledFooter = styled.div`
 `;
 
 const InfoWrapper = styled.div`
-  width: 100%;
+  max-width: 80%;
   display: flex;
-  flex-direction: row;
+
   font-family: 'Century Gothic';
   font-size: 19px;
   text-decoration: none;
   color: black;
 
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
-  line-height: 35px;
-  margin-top: 57vh;
-  & > :nth-child(1) {
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-  }
-  & > :nth-child(2) {
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+  align-content: flex-start;
+  margin-top: 27vh;
+
+  & > div {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 50px;
   }
 `;
 
@@ -112,9 +115,23 @@ export class Products extends React.Component {
           <ProductsBar />
         </StyledBar>
         <BackGround>
-          <div style={{ height: '100%', minHeight: '100vh' }}>
-            <div style={{ paddingTop: '90px' }}>{''}</div>
-            <InfoWrapper />
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              minHeight: '100vh',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <InfoWrapper>
+              <ProductItem background={background1} />
+              <ProductItem background={background2} />
+              <ProductItem background={background3} />
+              <ProductItem background={background4} />
+              <ProductItem background={background5} />
+              <ProductItem background={background6} />
+            </InfoWrapper>
           </div>
           <StyledFooter>
             <Footer />

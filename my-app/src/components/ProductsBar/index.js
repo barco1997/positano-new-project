@@ -52,9 +52,20 @@ const NavMenuItem = styled(Link)`
   display: flex;
   flex-direction: column;
   flex: 1;
-
+  padding-bottom: 4px;
+  padding-top: 2px;
   align-items: center;
   ${media.desktop`display: none;`};
+  &:hover > div {
+    font-size: 15px;
+  }
+  &:hover > img {
+    width: 50px;
+  }
+  &:hover {
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
 `;
 
 const MenuImg = styled.img`
