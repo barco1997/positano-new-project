@@ -4,9 +4,11 @@ import React from 'react';
 //  import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import LinkButton from '../LinkButton/index';
+import { media } from '../../utils/media';
 const ProductItemWrapper = styled.div`
   width: 320px;
   height: 220px;
+  ${media.tablet`height: 225px;`};
   display: flex;
   flex-direction: column;
   background-image: url(${props => props.background}); /* The image used */
@@ -20,14 +22,20 @@ const ProductItemWrapper = styled.div`
 const Overlay = styled.div`
   width: 100%;
   height: 100%;
-  background: rgba(243, 243, 243, 0.65);
+  background: rgba(243, 243, 243, 0.22);
   display: flex;
   flex-direction: column;
   font-family: 'Century Gothic';
+  ${media.tablet`font-size: 11px;`};
   font-size: 12px;
-  opacity: 0;
+  opacity: 1;
+  ${media.tablet`opacity: 1;
+  background: rgba(243, 243, 243, 0.5);`};
   &:hover {
-    opacity: 1;
+    & > div {
+      opacity: 1;
+    }
+    background: rgba(243, 243, 243, 0.65);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
   }
 `;
@@ -36,21 +44,27 @@ const Header = styled.div`
   font-size: 25px;
   margin-left: 25px;
   margin-top: 20px;
+  ${media.tablet`font-size: 20px;
+  margin-top: 15px;`};
 `;
 
 const Description = styled.div`
   margin-left: 25px;
   margin-right: 25px;
   margin-top: 1px;
+  opacity: 0;
   & > p {
     display: -webkit-box;
     -webkit-line-clamp: 6;
+
     -webkit-box-orient: vertical;
 
     text-overflow: ellipsis;
     overflow: hidden;
     min-height: 90px;
     max-height: 100px;
+    ${media.tablet`
+    min-height: 92px;`};
   }
 `;
 

@@ -19,7 +19,6 @@ import image3 from './image3.svg';
 import image4 from './image4.svg';
 import image5 from './image5.svg';
 import image6 from './image6.svg';
-import { Link } from 'react-router-dom';
 
 const NavBarWrapper = styled.div`
   width: 100%;
@@ -33,7 +32,7 @@ const NavBarWrapper = styled.div`
   border-style: ${props => (props.color ? 'none' : 'solid')};
   border-width: 0px 0px 1px 0px;
   border-color: #eee7e1;
-  ${media.desktop`height: 60px;`};
+  ${media.tablet`height: 60px;`};
 `;
 
 const Menu = styled.div`
@@ -42,26 +41,37 @@ const Menu = styled.div`
   justify-content: center;
   font-size: 13px;
   margin: 0px -15px;
+  ${media.tablet`margin: 0px -10px;`};
   & > * {
-    margin: 0px 15px;
+    ${media.tablet`margin: 0px 10px;`};
   }
 `;
 
-const NavMenuItem = styled(Link)`
+const NavMenuItem = styled.div`
   text-decoration: none;
   color: black;
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding-bottom: 4px;
-  padding-top: 2px;
+  padding-bottom: ${props => (props.active ? '0px' : '4px')};
+  padding-top: ${props => (props.active ? '0px' : '2px')};
   align-items: center;
-  ${media.desktop`display: none;`};
+
   &:hover > div {
     font-size: 15px;
+    ${media.tablet`font-size: 8px;`};
+  }
+  & > div {
+    font-size: ${props => props.active && '15px'};
+    ${media.tablet`font-size: 8px;`};
   }
   &:hover > img {
     width: 50px;
+    ${media.tablet`width: 25px;`};
+  }
+  & > img {
+    width: ${props => props.active && '50px'};
+    ${media.tablet`width: 25px;`};
   }
   &:hover {
     padding-bottom: 0px;
@@ -72,12 +82,14 @@ const NavMenuItem = styled(Link)`
 const MenuImg = styled.img`
   margin-top: 3px;
   width: 46px;
+  ${media.tablet`width: 22px;`};
 `;
 
 const MenuText = styled.div`
   margin-top: 5px;
   display: flex;
   justify-content: center;
+  ${media.tablet`font-size: 6px;`};
 `;
 /* eslint-disable react/prefer-stateless-function */
 export class ProductsBar extends React.Component {
@@ -97,27 +109,57 @@ export class ProductsBar extends React.Component {
     return (
       <NavBarWrapper color={this.props.color}>
         <Menu>
-          <NavMenuItem to="/main">
+          <NavMenuItem
+            onClick={() => {
+              this.props.action(0);
+            }}
+            active={this.props.active === 0}
+          >
             <MenuImg src={image1} alt="image" />
             <MenuText>Сантехника</MenuText>
           </NavMenuItem>
-          <NavMenuItem to="/main">
+          <NavMenuItem
+            onClick={() => {
+              this.props.action(1);
+            }}
+            active={this.props.active === 1}
+          >
             <MenuImg src={image2} alt="image" />
             <MenuText>Плитка</MenuText>
           </NavMenuItem>
-          <NavMenuItem to="/main">
+          <NavMenuItem
+            onClick={() => {
+              this.props.action(2);
+            }}
+            active={this.props.active === 2}
+          >
             <MenuImg src={image3} alt="image" />
             <MenuText>Паркет</MenuText>
           </NavMenuItem>
-          <NavMenuItem to="/main">
+          <NavMenuItem
+            onClick={() => {
+              this.props.action(3);
+            }}
+            active={this.props.active === 3}
+          >
             <MenuImg src={image4} alt="image" />
             <MenuText>Мебель</MenuText>
           </NavMenuItem>
-          <NavMenuItem to="/main">
+          <NavMenuItem
+            onClick={() => {
+              this.props.action(4);
+            }}
+            active={this.props.active === 4}
+          >
             <MenuImg src={image5} alt="image" />
             <MenuText>Кухни</MenuText>
           </NavMenuItem>
-          <NavMenuItem to="/main">
+          <NavMenuItem
+            onClick={() => {
+              this.props.action(5);
+            }}
+            active={this.props.active === 5}
+          >
             <MenuImg src={image6} alt="image" />
             <MenuText>Свет</MenuText>
           </NavMenuItem>

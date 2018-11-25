@@ -159,7 +159,7 @@ export class NavBar extends React.Component {
       <NavBarWrapper color={this.props.color}>
         <Logo to="/main">ПОЗИТАНО</Logo>
         <Menu>
-          <NavMenuItem to="/catalogue">Каталоги</NavMenuItem>
+          <NavMenuItem to="/main">О&nbsp;компании</NavMenuItem>
           <NavMenuItem to="/products">Продукция</NavMenuItem>
           <NavMenuItem to="/contacts">Контакты</NavMenuItem>
 
@@ -184,17 +184,14 @@ export class NavBar extends React.Component {
             <div style={{ width: '100%' }}>
               <div style={{ padding: '2em' }}>
                 <MenuWrapper>
-                  <MenuItem to="/catalogue" activeClassName="selected">
-                    Каталоги
+                  <MenuItem to="/main" activeClassName="selected">
+                    О&nbsp;компании
                   </MenuItem>
                   <MenuItem to="/products" activeClassName="selected">
                     Продукция
                   </MenuItem>
                   <MenuItem to="/contacts" activeClassName="selected">
                     Контакты
-                  </MenuItem>
-                  <MenuItem to="/main" activeClassName="selected">
-                    О компании
                   </MenuItem>
                 </MenuWrapper>
               </div>

@@ -29,12 +29,14 @@ import axios from 'axios';
 //  import * as Yup from 'yup';
 import NavBar from '../../components/NavBar/index';
 import Footer from '../../components/Footer/index';
-import More2 from './More2.png';
-import More3 from './More3.png';
-import More4 from './More4.png';
-import More5 from './More5.png';
-import More6 from './More6.png';
-import More7 from './More7.png';
+import MoreInfoButton from '../../components/MoreInfoButton/index';
+import MoreInfoButtonLink from '../../components/MoreInfoButtonLink/index';
+//  import More2 from './More2.png';
+//  import More3 from './More3.png';
+//  import More4 from './More4.png';
+//  import More5 from './More5.png';
+//  import More6 from './More6.png';
+//  import More7 from './More7.png';
 
 //  import YandexMapsContainer from '../../components/YandexMapsContainer/index';
 //  import CouponHistory from '../../components/CouponHistory';
@@ -102,6 +104,7 @@ const MainImage = styled.img`
   margin-top: 3px;
   width: 350px;
   height: 201px;
+  object-fit: cover;
 `;
 
 const Description = styled.div`
@@ -131,6 +134,27 @@ const LowRowItem = styled.img`
   margin: 15px 15px;
   width: 137px;
   height: 100px;
+  object-fit: cover;
+`;
+
+const ButtonWrap = styled.div`
+  margin: 15px 5px;
+  width: 100%;
+  max-width: 460px;
+`;
+
+const ButtonLine = styled.div`
+  margin: 0px 15px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const LowRowPlaceholder = styled.div`
+  margin: 15px 15px;
+  width: 137px;
+  height: 100px;
 `;
 
 /* const BottomPhotos = styled.div`
@@ -150,6 +174,7 @@ export class MoreInfoPage extends React.Component {
     this.state = {
       post: [],
       images: [],
+      href: '',
     };
   }
   componentDidMount() {
@@ -161,52 +186,132 @@ export class MoreInfoPage extends React.Component {
         ),
       )
       .then(res => {
+        let imgs = [];
+        console.log('data -', res.data);
+        let href;
+        const string = res.data.content;
+        const regex = /<img.*?src="(.*?)"/g;
+        let match = regex.exec(string);
+        while (match) {
+          const src = match[1];
+
+          imgs.push(src);
+          match = regex.exec(string);
+        }
+
+        const regexHref = /<a.*?href="(.*?)"/g;
+        let matchHref = regexHref.exec(string);
+        while (matchHref) {
+          href = matchHref[1] ? matchHref[1] : '#';
+
+          matchHref = regexHref.exec(string);
+        }
+
         this.setState({
           post: res.data,
+          images: imgs,
+          href: href,
         });
-        console.log(this.state.post);
       })
       .catch(error => console.log(error));
   }
   render() {
+    function removeUnicode(props) {
+      return props.replace(/&nbsp;/g, '').replace(/\[Products\]/, '');
+    }
+    function removeUnicodeForSend(props) {
+      return props.replace(/&.*?;/g, '').replace(/\[Products\]\s/, '');
+    }
     return (
       <CouponInfoWrapper>
         <StyledBar>
           <NavBar />
         </StyledBar>
-        <BackGround>
-          <div
-            style={{
-              height: '100%',
-              minHeight: '100vh',
-              flexDirection: 'column',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
+        {this.state.post.title && (
+          <BackGround>
             <div
-              style={{ paddingTop: '120px' }}
-              dangerouslySetInnerHTML={{ __html: this.state.post.title }}
-            />
-            <InfoWrapper>
-              <MainImage src={this.state.post.featured_image} alt="image" />
-              <Description
-                dangerouslySetInnerHTML={{ __html: this.state.post.excerpt }}
+              style={{
+                height: '100%',
+                minHeight: '100vh',
+                flexDirection: 'column',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <div
+                style={{ paddingTop: '120px' }}
+                dangerouslySetInnerHTML={{
+                  __html: removeUnicode(this.state.post.title),
+                }}
               />
-            </InfoWrapper>
-            <LowRow>
-              <LowRowItem src={More2} alt="image" />
-              <LowRowItem src={More3} alt="image" />
-              <LowRowItem src={More4} alt="image" />
-              <LowRowItem src={More5} alt="image" />
-              <LowRowItem src={More6} alt="image" />
-              <LowRowItem src={More7} alt="image" />
-            </LowRow>
-          </div>
-          <StyledFooter>
-            <Footer />
-          </StyledFooter>
-        </BackGround>
+
+              <InfoWrapper>
+                <MainImage src={this.state.post.featured_image} alt="image" />
+                <Description
+                  dangerouslySetInnerHTML={{ __html: this.state.post.excerpt }}
+                />
+              </InfoWrapper>
+              <LowRow>
+                {this.state.images[0] ? (
+                  <LowRowItem src={this.state.images[0]} alt="image" />
+                ) : (
+                  <LowRowPlaceholder />
+                )}
+                {this.state.images[1] ? (
+                  <LowRowItem src={this.state.images[1]} alt="image" />
+                ) : (
+                  <LowRowPlaceholder />
+                )}
+                {this.state.images[2] ? (
+                  <LowRowItem src={this.state.images[2]} alt="image" />
+                ) : (
+                  <LowRowPlaceholder />
+                )}
+                {this.state.images[3] ? (
+                  <LowRowItem src={this.state.images[3]} alt="image" />
+                ) : (
+                  <LowRowPlaceholder />
+                )}
+                {this.state.images[4] ? (
+                  <LowRowItem src={this.state.images[4]} alt="image" />
+                ) : (
+                  <LowRowPlaceholder />
+                )}
+                {this.state.images[5] ? (
+                  <LowRowItem src={this.state.images[5]} alt="image" />
+                ) : (
+                  <LowRowPlaceholder />
+                )}
+                <ButtonLine>
+                  <ButtonWrap>
+                    <MoreInfoButton
+                      background="#F8F8F8"
+                      to={this.state.href}
+                      color="black"
+                    >
+                      Сайт
+                    </MoreInfoButton>
+                  </ButtonWrap>
+                  <ButtonWrap>
+                    <MoreInfoButtonLink
+                      background="#827568"
+                      to={`/catalogue/${removeUnicodeForSend(
+                        this.state.post.title,
+                      )}`}
+                      color="#FFFEFE"
+                    >
+                      Каталоги
+                    </MoreInfoButtonLink>
+                  </ButtonWrap>
+                </ButtonLine>
+              </LowRow>
+            </div>
+
+            <StyledFooter>
+              <Footer />
+            </StyledFooter>
+          </BackGround>
+        )}
       </CouponInfoWrapper>
     );
   }

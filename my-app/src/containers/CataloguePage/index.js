@@ -95,8 +95,29 @@ export class MoreInfoPage extends React.Component {
         'http://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts',
       )
       .then(res => {
+        console.log(
+          'looking for',
+          this.props.match.params.tag.replace(/\W/g, ''),
+        );
         this.setState({
-          posts: res.data.posts.filter(post => post.categories.catalogues),
+          posts: res.data.posts
+            .filter(post => post.categories.catalogues)
+            .filter(post => {
+              console.log('THIS IS IT', Object.keys(post.tags).length);
+              let i = 0;
+              for (i; i < Object.keys(post.tags).length; i++) {
+                if (
+                  post.tags[Object.keys(post.tags)[i]] &&
+                  post.tags[Object.keys(post.tags)[i]].name.replace(
+                    /\W/g,
+                    '',
+                  ) === this.props.match.params.tag.replace(/\W/g, '')
+                ) {
+                  return true;
+                }
+              }
+              return false;
+            }),
         });
         console.log(this.state.posts);
       })
@@ -105,7 +126,7 @@ export class MoreInfoPage extends React.Component {
 
   render() {
     function removeUnicode(props) {
-      return props.replace(/&nbsp;/g, '');
+      return props.replace(/&nbsp;/g, '').replace(/\[Catalogues\]/, '');
     }
     return (
       <CouponInfoWrapper>
@@ -125,8 +146,9 @@ export class MoreInfoPage extends React.Component {
               {this.state.posts.map(post => (
                 <CatalogueCard
                   title={removeUnicode(post.title)}
-                  description={removeUnicode(post.content)}
+                  content={removeUnicode(post.content)}
                   image={post.featured_image}
+                  key={post.ID}
                 />
               ))}
             </div>

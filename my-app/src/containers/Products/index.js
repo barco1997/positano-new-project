@@ -97,7 +97,16 @@ export class Products extends React.Component {
     super(props);
     this.state = {
       posts: [],
+      index: 0,
     };
+    this.setId = this.setId.bind(this);
+  }
+
+  setId(value) {
+    this.setState({
+      index: value,
+    });
+    console.log('come here', value);
   }
   componentDidMount() {
     axios
@@ -105,8 +114,20 @@ export class Products extends React.Component {
         'http://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts',
       )
       .then(res => {
+        let products = [];
+        const setOfAll = res.data.posts.filter(
+          post => post.categories.products,
+        );
+        products.push(
+          setOfAll.filter(post => post.tags.santehnika),
+          setOfAll.filter(post => post.tags.plitka),
+          setOfAll.filter(post => post.tags.parket),
+          setOfAll.filter(post => post.tags.mebel),
+          setOfAll.filter(post => post.tags.kuhni),
+          setOfAll.filter(post => post.tags.svet),
+        );
         this.setState({
-          posts: res.data.posts.filter(post => post.categories.products),
+          posts: products,
         });
         console.log(this.state.posts);
       })
@@ -114,13 +135,13 @@ export class Products extends React.Component {
   }
   render() {
     function removeUnicode(props) {
-      return props.replace(/&nbsp;/g, '');
+      return props.replace(/&nbsp;/g, '').replace(/\[Products\]/, '');
     }
     return (
       <CouponInfoWrapper>
         <StyledBar>
           <NavBar />
-          <ProductsBar />
+          <ProductsBar active={this.state.index} action={this.setId} />
         </StyledBar>
         <BackGround>
           <div
@@ -134,14 +155,16 @@ export class Products extends React.Component {
             }}
           >
             <InfoWrapper>
-              {this.state.posts.map(post => (
-                <ProductItem
-                  background={post.featured_image}
-                  title={removeUnicode(post.title)}
-                  description={removeUnicode(post.excerpt)}
-                  to={`/products/${post.ID}`}
-                />
-              ))}
+              {this.state.posts[this.state.index] &&
+                this.state.posts[this.state.index].map(post => (
+                  <ProductItem
+                    background={post.featured_image}
+                    title={removeUnicode(post.title)}
+                    description={removeUnicode(post.excerpt)}
+                    to={`/products/${post.ID}`}
+                    key={post.ID}
+                  />
+                ))}
             </InfoWrapper>
           </div>
           <StyledFooter>

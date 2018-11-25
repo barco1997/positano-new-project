@@ -7,19 +7,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-//  import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Button = styled.a`
+const Button = styled(Link)`
   text-decoration: none;
-  border-width: 0px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #977c7c;
   -webkit-font-smoothing: antialiased;
   -webkit-touch-callout: none;
   user-select: none;
   cursor: pointer;
   outline: 0;
-  background: ${props => (props.color ? props.color : 'white')};
-  color: black;
-  border-radius: 10px;
+  background: ${props => (props.background ? props.background : 'white')};
+  color: ${props => (props.color ? props.color : 'black')};
+  border-radius: 30px;
   width: 100%;
   height: 40px;
   display: flex;
@@ -28,23 +30,23 @@ const Button = styled.a`
   font-size: 19px;
   transition: background 300ms ease-in-out;
   &:hover {
-    background: rgba(0, 0, 0, 0.61);
+    background: rgba(0, 0, 0, 0.31);
   }
   & > * {
     margin-top: -4px;
   }
 `;
 
-const DownloadButton = ({ children, color, to }) => (
-  <Button href={to} color={color} rel="noopener noreferrer" target="_blank">
+const MoreInfoButtonLink = ({ children, background, to, color }) => (
+  <Button to={to} background={background} color={color}>
     {children}
   </Button>
 );
 
-DownloadButton.propTypes = {
+MoreInfoButtonLink.propTypes = {
   color: PropTypes.string,
   children: PropTypes.node.isRequired,
   to: PropTypes.string,
 };
 
-export default DownloadButton;
+export default MoreInfoButtonLink;

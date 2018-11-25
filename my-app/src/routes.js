@@ -35,7 +35,7 @@ export function Routes() {
         <Route exact path="/products" component={Products} />
         <Route exact path="/contacts" component={Contacts} />
         <Route exact path="/products/:id" component={MoreInfoPage} />
-        <Route exact path="/catalogue" component={CataloguePage} />
+        <Route exact path="/catalogue/:tag" component={CataloguePage} />
       </Switch>
     </AppWrapper>
   );

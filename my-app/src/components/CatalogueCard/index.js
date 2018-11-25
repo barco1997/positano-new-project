@@ -70,37 +70,59 @@ const CatalogueCardWrapper = styled.div`
 `;
 
 export class CatalogueCard extends React.Component {
-  //  constructor(props, context) {
-  //  super(props, context);
-  //    this.state = {
-  //    id: this.getId(),
-  //  };
-  //  this.getId = this.getId.bind(this);
-  //}
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      href: null,
+      description: null,
+    };
+  }
 
-  //getId() {
-  // const currentLocation = this.props.location.pathname.slice(14);
-  // return currentLocation;
-  //}
+  componentDidMount() {
+    let hrefs = [];
+    let descriptions = [];
+
+    const string = this.props.content;
+    console.log(this.props.content);
+    const regex = /(<p>.*?<\/p>)(?:\n.*?<a.*?href="(.*?)")?/g;
+    let match = regex.exec(string);
+    while (match) {
+      const description = match[1];
+      const href = match[2] ? match[2] : '#';
+
+      hrefs.push(href);
+      descriptions.push(description);
+      match = regex.exec(string);
+    }
+
+    this.setState({
+      href: hrefs,
+      description: descriptions,
+    });
+  }
   render() {
     return (
-      <CatalogueCardWrapper>
-        <div dangerouslySetInnerHTML={{ __html: this.props.title }} />
-        <InfoWrapper>
-          <MainImage
-            back={this.props.image ? this.props.image : ph1}
-            alt="image"
-          />
-          <Description
-            dangerouslySetInnerHTML={{ __html: this.props.description }}
-          />
-        </InfoWrapper>
-        <LowRow>
-          <DownloadButton to="/main" color="#EEE7E1">
-            Скачать
-          </DownloadButton>
-        </LowRow>
-      </CatalogueCardWrapper>
+      <div>
+        {this.state.description && (
+          <CatalogueCardWrapper>
+            <div dangerouslySetInnerHTML={{ __html: this.props.title }} />
+            <InfoWrapper>
+              <MainImage
+                back={this.props.image ? this.props.image : ph1}
+                alt="image"
+              />
+              <Description
+                dangerouslySetInnerHTML={{ __html: this.state.description[0] }}
+              />
+            </InfoWrapper>
+            <LowRow>
+              <DownloadButton to={this.state.href[0]} color="#EEE7E1">
+                Скачать
+              </DownloadButton>
+            </LowRow>
+          </CatalogueCardWrapper>
+        )}
+      </div>
     );
   }
 }
