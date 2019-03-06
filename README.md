@@ -4,7 +4,7 @@ Website for an interior design studio in Brest, Belarus
 
 ## Shown as example of my works
 
-Setup .htaccess or nginx cofiguration of ur domain to deal with <BrowserRouter/>
+Setup .htaccess or nginx cofiguration of ur domain to deal with "<BrowserRouter/>"
 
 
 ## Built With
