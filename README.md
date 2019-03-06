@@ -14,7 +14,7 @@ Setup .htaccess or nginx cofiguration of ur domain to deal with BrowserRouter
 
 ## Authors
 
-* **Oleksandr Barchuk** - *Initial work* - [barco1997](https://github.com/barco1997)
+* **Oleksandr Barchuk** - [barco1997](https://github.com/barco1997)
 
 
 ## License
