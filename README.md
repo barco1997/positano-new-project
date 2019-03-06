@@ -1,4 +1,26 @@
-# positano-new-project
-Website of a interior design studio in Brest, Belarus
+# Positano
 
-created with create-react-app
+Website for an interior design studio in Brest, Belarus
+
+## Shown as example of my works
+
+Setup .htaccess or nginx cofiguration of ur domain to deal with <BrowserRouter/>
+
+
+## Built With
+
+* [create-react-app](https://github.com/facebook/create-react-app/) - The web framework used
+
+
+## Authors
+
+* **Oleksandr Barchuk** - *Initial work* - [barco1997](https://github.com/barco1997)
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* As christian, I always thank God :)
