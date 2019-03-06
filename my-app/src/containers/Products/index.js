@@ -100,6 +100,7 @@ export class Products extends React.Component {
       index: 0,
     };
     this.setId = this.setId.bind(this);
+    this.sortAsc = this.sortAsc.bind(this);
   }
 
   setId(value) {
@@ -108,10 +109,16 @@ export class Products extends React.Component {
     });
     console.log('come here', value);
   }
+
+  sortAsc(a, b) {
+    if (a.title < b.title) return -1;
+    else if (a.title > b.title) return 1;
+    else return 0;
+  }
   componentDidMount() {
     axios
       .get(
-        'http://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts',
+        'https://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts',
       )
       .then(res => {
         let products = [];
@@ -119,12 +126,12 @@ export class Products extends React.Component {
           post => post.categories.products,
         );
         products.push(
-          setOfAll.filter(post => post.tags.santehnika),
-          setOfAll.filter(post => post.tags.plitka),
-          setOfAll.filter(post => post.tags.parket),
-          setOfAll.filter(post => post.tags.mebel),
-          setOfAll.filter(post => post.tags.kuhni),
-          setOfAll.filter(post => post.tags.svet),
+          setOfAll.filter(post => post.tags.santehnika).sort(this.sortAsc),
+          setOfAll.filter(post => post.tags.plitka).sort(this.sortAsc),
+          setOfAll.filter(post => post.tags.parket).sort(this.sortAsc),
+          setOfAll.filter(post => post.tags.mebel).sort(this.sortAsc),
+          setOfAll.filter(post => post.tags.kuhni).sort(this.sortAsc),
+          setOfAll.filter(post => post.tags.svet).sort(this.sortAsc),
         );
         this.setState({
           posts: products,

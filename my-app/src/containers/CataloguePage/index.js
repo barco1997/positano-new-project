@@ -92,7 +92,7 @@ export class MoreInfoPage extends React.Component {
   componentDidMount() {
     axios
       .get(
-        'http://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts',
+        'https://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts',
       )
       .then(res => {
         console.log(

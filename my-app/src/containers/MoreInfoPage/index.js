@@ -43,6 +43,67 @@ import MoreInfoButtonLink from '../../components/MoreInfoButtonLink/index';
 //  import GoodHistory from '../../components/GoodHistory';
 // import messages from './messages';
 
+const EnlargedImageOverlay = styled.div`
+  z-index: 10002;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 0.85;
+  background-color: #000;
+`;
+const EnlargedImage = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10003;
+  background: url(${props => props.src}) center;
+  max-width: 63vw;
+  max-height: 63vh;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 13vh;
+
+  -webkit-filter: drop-shadow(0px 30px 60px rgba(0, 0, 0, 0.92));
+  filter: drop-shadow(0px 30px 60px rgba(0, 0, 0, 0.92));
+`;
+
+const CloseButton = styled.span`
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 18px;
+  height: 18px;
+
+  opacity: 1;
+  &:hover {
+    opacity: 0.7;
+  }
+  &:before,
+  &:after {
+    position: absolute;
+    left: 9px;
+    content: ' ';
+    height: 18px;
+    width: 4px;
+    background-color: white;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+`;
+const CloseWrapper = styled.div`
+  position: absolute;
+  right: 0px;
+  top: -50px;
+`;
+
 const CouponInfoWrapper = styled.div`
   width: 100%;
   overflow: hidden;
@@ -135,6 +196,14 @@ const LowRowItem = styled.img`
   width: 137px;
   height: 100px;
   object-fit: cover;
+  position: relative;
+`;
+
+const HoverImageWrapper = styled.div`
+  &:hover .large {
+    display: block;
+  }
+  display: flex;
 `;
 
 const ButtonWrap = styled.div`
@@ -175,13 +244,14 @@ export class MoreInfoPage extends React.Component {
       post: [],
       images: [],
       href: '',
+      popupImage: null,
     };
   }
   componentDidMount() {
     console.log('crap man', this.props.match.params.id);
     axios
       .get(
-        'http://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts/'.concat(
+        'https://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts/'.concat(
           this.props.match.params.id,
         ),
       )
@@ -222,97 +292,179 @@ export class MoreInfoPage extends React.Component {
     function removeUnicodeForSend(props) {
       return props.replace(/&.*?;/g, '').replace(/\[Products\]\s/, '');
     }
+    const imgs = this.state.images;
+    const ftrd = this.state.post.featured_image;
     return (
-      <CouponInfoWrapper>
-        <StyledBar>
-          <NavBar />
-        </StyledBar>
-        {this.state.post.title && (
-          <BackGround>
-            <div
-              style={{
-                height: '100%',
-                minHeight: '100vh',
-                flexDirection: 'column',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <div
-                style={{ paddingTop: '120px' }}
-                dangerouslySetInnerHTML={{
-                  __html: removeUnicode(this.state.post.title),
-                }}
-              />
-
-              <InfoWrapper>
-                <MainImage src={this.state.post.featured_image} alt="image" />
-                <Description
-                  dangerouslySetInnerHTML={{ __html: this.state.post.excerpt }}
+      <React.Fragment>
+        {this.state.popupImage && (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <EnlargedImageOverlay />
+            <EnlargedImage src={this.state.popupImage}>
+              <CloseWrapper>
+                <CloseButton
+                  onClick={() => {
+                    this.setState({
+                      popupImage: null,
+                    });
+                  }}
                 />
-              </InfoWrapper>
-              <LowRow>
-                {this.state.images[0] ? (
-                  <LowRowItem src={this.state.images[0]} alt="image" />
-                ) : (
-                  <LowRowPlaceholder />
-                )}
-                {this.state.images[1] ? (
-                  <LowRowItem src={this.state.images[1]} alt="image" />
-                ) : (
-                  <LowRowPlaceholder />
-                )}
-                {this.state.images[2] ? (
-                  <LowRowItem src={this.state.images[2]} alt="image" />
-                ) : (
-                  <LowRowPlaceholder />
-                )}
-                {this.state.images[3] ? (
-                  <LowRowItem src={this.state.images[3]} alt="image" />
-                ) : (
-                  <LowRowPlaceholder />
-                )}
-                {this.state.images[4] ? (
-                  <LowRowItem src={this.state.images[4]} alt="image" />
-                ) : (
-                  <LowRowPlaceholder />
-                )}
-                {this.state.images[5] ? (
-                  <LowRowItem src={this.state.images[5]} alt="image" />
-                ) : (
-                  <LowRowPlaceholder />
-                )}
-                <ButtonLine>
-                  <ButtonWrap>
-                    <MoreInfoButton
-                      background="#F8F8F8"
-                      to={this.state.href}
-                      color="black"
-                    >
-                      Сайт
-                    </MoreInfoButton>
-                  </ButtonWrap>
-                  <ButtonWrap>
-                    <MoreInfoButtonLink
-                      background="#827568"
-                      to={`/catalogue/${removeUnicodeForSend(
-                        this.state.post.title,
-                      )}`}
-                      color="#FFFEFE"
-                    >
-                      Каталоги
-                    </MoreInfoButtonLink>
-                  </ButtonWrap>
-                </ButtonLine>
-              </LowRow>
-            </div>
-
-            <StyledFooter>
-              <Footer />
-            </StyledFooter>
-          </BackGround>
+              </CloseWrapper>
+            </EnlargedImage>
+          </div>
         )}
-      </CouponInfoWrapper>
+        <CouponInfoWrapper>
+          <StyledBar>
+            <NavBar />
+          </StyledBar>
+          {this.state.post.title && (
+            <BackGround>
+              <div
+                style={{
+                  height: '100%',
+                  minHeight: '100vh',
+                  flexDirection: 'column',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{ paddingTop: '120px' }}
+                  dangerouslySetInnerHTML={{
+                    __html: removeUnicode(this.state.post.title),
+                  }}
+                />
+
+                <InfoWrapper>
+                  <MainImage
+                    src={this.state.post.featured_image}
+                    alt="image"
+                    onClick={() => {
+                      this.setState({
+                        popupImage: ftrd,
+                      });
+                    }}
+                  />
+                  <Description
+                    dangerouslySetInnerHTML={{
+                      __html: this.state.post.excerpt,
+                    }}
+                  />
+                </InfoWrapper>
+                <LowRow>
+                  {this.state.images[0] ? (
+                    <HoverImageWrapper>
+                      <LowRowItem
+                        src={this.state.images[0]}
+                        alt="image"
+                        onClick={() => {
+                          this.setState({
+                            popupImage: imgs[0],
+                          });
+                        }}
+                      />
+                    </HoverImageWrapper>
+                  ) : (
+                    <LowRowPlaceholder />
+                  )}
+                  {this.state.images[1] ? (
+                    <HoverImageWrapper>
+                      <LowRowItem
+                        src={this.state.images[1]}
+                        alt="image"
+                        onClick={() => {
+                          this.setState({
+                            popupImage: imgs[1],
+                          });
+                        }}
+                      />
+                    </HoverImageWrapper>
+                  ) : (
+                    <LowRowPlaceholder />
+                  )}
+                  {this.state.images[2] ? (
+                    <LowRowItem
+                      src={this.state.images[2]}
+                      alt="image"
+                      onClick={() => {
+                        this.setState({
+                          popupImage: imgs[2],
+                        });
+                      }}
+                    />
+                  ) : (
+                    <LowRowPlaceholder />
+                  )}
+                  {this.state.images[3] ? (
+                    <LowRowItem
+                      src={this.state.images[3]}
+                      alt="image"
+                      onClick={() => {
+                        this.setState({
+                          popupImage: imgs[3],
+                        });
+                      }}
+                    />
+                  ) : (
+                    <LowRowPlaceholder />
+                  )}
+                  {this.state.images[4] ? (
+                    <LowRowItem
+                      src={this.state.images[4]}
+                      alt="image"
+                      onClick={() => {
+                        this.setState({
+                          popupImage: imgs[4],
+                        });
+                      }}
+                    />
+                  ) : (
+                    <LowRowPlaceholder />
+                  )}
+                  {this.state.images[5] ? (
+                    <LowRowItem
+                      src={this.state.images[5]}
+                      alt="image"
+                      onClick={() => {
+                        this.setState({
+                          popupImage: imgs[5],
+                        });
+                      }}
+                    />
+                  ) : (
+                    <LowRowPlaceholder />
+                  )}
+                  <ButtonLine>
+                    <ButtonWrap>
+                      <MoreInfoButton
+                        background="#F8F8F8"
+                        to={this.state.href}
+                        color="black"
+                      >
+                        Сайт
+                      </MoreInfoButton>
+                    </ButtonWrap>
+                    <ButtonWrap>
+                      <MoreInfoButtonLink
+                        background="#827568"
+                        to={`/catalogue/${removeUnicodeForSend(
+                          this.state.post.title,
+                        )}`}
+                        color="#FFFEFE"
+                      >
+                        Каталоги
+                      </MoreInfoButtonLink>
+                    </ButtonWrap>
+                  </ButtonLine>
+                </LowRow>
+              </div>
+
+              <StyledFooter>
+                <Footer />
+              </StyledFooter>
+            </BackGround>
+          )}
+        </CouponInfoWrapper>
+      </React.Fragment>
     );
   }
 }
