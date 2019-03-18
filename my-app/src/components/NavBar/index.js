@@ -35,6 +35,7 @@ import MenuItem from '../MenuItem/index';
 //  import GoodHistory from '../../components/GoodHistory';
 // import messages from './messages';
 import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Burger = styled.div`
   margin: 0;
@@ -131,10 +132,15 @@ const Menu = styled.div`
   }
 `;
 
-const NavMenuItem = styled(Link)`
+const NavMenuItem = styled(NavLink)`
   text-decoration: none;
   color: black;
   ${media.desktop`display: none;`};
+  &:hover,
+  &.selected {
+    border-bottom: 1px solid;
+    border-color: #aaa39b;
+  }
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -159,9 +165,15 @@ export class NavBar extends React.Component {
       <NavBarWrapper color={this.props.color}>
         <Logo to="/main">ПОЗИТАНО</Logo>
         <Menu>
-          <NavMenuItem to="/main">О&nbsp;компании</NavMenuItem>
-          <NavMenuItem to="/products">Продукция</NavMenuItem>
-          <NavMenuItem to="/contacts">Контакты</NavMenuItem>
+          <NavMenuItem activeClassName="selected" to="/main">
+            О&nbsp;компании
+          </NavMenuItem>
+          <NavMenuItem activeClassName="selected" to="/products">
+            Продукция
+          </NavMenuItem>
+          <NavMenuItem activeClassName="selected" to="/contacts">
+            Контакты
+          </NavMenuItem>
 
           <Burger
             open={isOpen}

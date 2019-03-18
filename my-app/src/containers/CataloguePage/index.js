@@ -92,7 +92,7 @@ export class MoreInfoPage extends React.Component {
   componentDidMount() {
     axios
       .get(
-        'https://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts',
+        'https://public-api.wordpress.com/rest/v1.1/sites/positano191751113.wordpress.com/posts/?number=100&category=catalogues',
       )
       .then(res => {
         console.log(
@@ -100,24 +100,30 @@ export class MoreInfoPage extends React.Component {
           this.props.match.params.tag.replace(/\W/g, ''),
         );
         this.setState({
-          posts: res.data.posts
-            .filter(post => post.categories.catalogues)
-            .filter(post => {
-              console.log('THIS IS IT', Object.keys(post.tags).length);
-              let i = 0;
-              for (i; i < Object.keys(post.tags).length; i++) {
-                if (
-                  post.tags[Object.keys(post.tags)[i]] &&
-                  post.tags[Object.keys(post.tags)[i]].name.replace(
-                    /\W/g,
-                    '',
-                  ) === this.props.match.params.tag.replace(/\W/g, '')
-                ) {
-                  return true;
-                }
+          posts: res.data.posts.filter(post => {
+            console.log('THIS IS IT', Object.keys(post.tags).length);
+            let i = 0;
+            for (i; i < Object.keys(post.tags).length; i++) {
+              if (
+                post.tags[Object.keys(post.tags)[i]] &&
+                post.tags[Object.keys(post.tags)[i]].name
+                  .replace(/\W/g, '')
+                  .replace(/BUGFIXamp/g, '') ===
+                  this.props.match.params.tag.replace(/\W/g, '')
+              ) {
+                return true;
               }
-              return false;
-            }),
+              /*if (post.tags[Object.keys(post.tags)[i]]) {
+                  console.log(
+                    'found',
+                    post.tags[Object.keys(post.tags)[i]].name
+                      .replace(/\W/g, '')
+                      .replace(/BUGFIXamp/g, ''),
+                  );
+                }*/
+            }
+            return false;
+          }),
         });
         console.log(this.state.posts);
       })

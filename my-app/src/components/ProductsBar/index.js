@@ -13,13 +13,18 @@ import styled from 'styled-components';
 import { media } from '../../utils/media';
 //  import MenuWrapper from '../MenuWrapper/index';
 //  import MenuItem from '../MenuItem/index';
-import image1 from './image1.svg';
-import image2 from './image2.svg';
-import image3 from './image3.svg';
-import image4 from './image4.svg';
-import image5 from './image5.svg';
-import image6 from './image6.svg';
+//import image1 from './image1.svg';
+//import image2 from './image2.svg';
+//import image3 from './image3.svg';
+//import image4 from './image4.svg';
+//import image5 from './image5.svg';
 
+import { ReactComponent as ImageSix } from './image6.svg';
+import { ReactComponent as ImageFive } from './image5.svg';
+import { ReactComponent as ImageFour } from './image4.svg';
+import { ReactComponent as ImageThree } from './image3.svg';
+import { ReactComponent as ImageTwo } from './image2.svg';
+import { ReactComponent as ImageOne } from './image1.svg';
 const NavBarWrapper = styled.div`
   width: 100%;
   height: 90px;
@@ -79,10 +84,14 @@ const NavMenuItem = styled.div`
   }
 `;
 
-const MenuImg = styled.img`
+const MenuSvg = styled.div`
   margin-top: 3px;
   width: 46px;
-  ${media.tablet`width: 22px;`};
+  height: 46px;
+  ${media.tablet`
+  width: 22px;
+  height: 22px;
+  `};
 `;
 
 const MenuText = styled.div`
@@ -115,7 +124,9 @@ export class ProductsBar extends React.Component {
             }}
             active={this.props.active === 0}
           >
-            <MenuImg src={image1} alt="image" />
+            <MenuSvg>
+              <ImageOne />
+            </MenuSvg>
             <MenuText>Сантехника</MenuText>
           </NavMenuItem>
           <NavMenuItem
@@ -124,7 +135,9 @@ export class ProductsBar extends React.Component {
             }}
             active={this.props.active === 1}
           >
-            <MenuImg src={image2} alt="image" />
+            <MenuSvg>
+              <ImageTwo />
+            </MenuSvg>
             <MenuText>Плитка</MenuText>
           </NavMenuItem>
           <NavMenuItem
@@ -133,7 +146,9 @@ export class ProductsBar extends React.Component {
             }}
             active={this.props.active === 2}
           >
-            <MenuImg src={image3} alt="image" />
+            <MenuSvg>
+              <ImageThree />
+            </MenuSvg>
             <MenuText>Паркет</MenuText>
           </NavMenuItem>
           <NavMenuItem
@@ -142,7 +157,9 @@ export class ProductsBar extends React.Component {
             }}
             active={this.props.active === 3}
           >
-            <MenuImg src={image4} alt="image" />
+            <MenuSvg>
+              <ImageFour />
+            </MenuSvg>
             <MenuText>Мебель</MenuText>
           </NavMenuItem>
           <NavMenuItem
@@ -151,7 +168,9 @@ export class ProductsBar extends React.Component {
             }}
             active={this.props.active === 4}
           >
-            <MenuImg src={image5} alt="image" />
+            <MenuSvg>
+              <ImageFive />
+            </MenuSvg>
             <MenuText>Кухни</MenuText>
           </NavMenuItem>
           <NavMenuItem
@@ -160,7 +179,9 @@ export class ProductsBar extends React.Component {
             }}
             active={this.props.active === 5}
           >
-            <MenuImg src={image6} alt="image" />
+            <MenuSvg>
+              <ImageSix />
+            </MenuSvg>
             <MenuText>Свет</MenuText>
           </NavMenuItem>
         </Menu>

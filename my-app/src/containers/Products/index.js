@@ -84,8 +84,8 @@ const InfoWrapper = styled.div`
   margin-left: -30px;
 
   & > div {
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 28px;
+    margin-right: 28px;
     margin-bottom: 50px;
   }
 `;
@@ -118,25 +118,28 @@ export class Products extends React.Component {
   componentDidMount() {
     axios
       .get(
-        'https://public-api.wordpress.com/rest/v1/sites/positano191751113.wordpress.com/posts',
+        'https://public-api.wordpress.com/rest/v1.1/sites/positano191751113.wordpress.com/posts/?number=100&category=products',
       )
       .then(res => {
         let products = [];
-        const setOfAll = res.data.posts.filter(
-          post => post.categories.products,
-        );
+        //const setOfAll = res.data.posts.filter(
+        //  post => post.categories.products,
+        //);
+        console.log('first occurence', res.data.posts);
         products.push(
-          setOfAll.filter(post => post.tags.santehnika).sort(this.sortAsc),
-          setOfAll.filter(post => post.tags.plitka).sort(this.sortAsc),
-          setOfAll.filter(post => post.tags.parket).sort(this.sortAsc),
-          setOfAll.filter(post => post.tags.mebel).sort(this.sortAsc),
-          setOfAll.filter(post => post.tags.kuhni).sort(this.sortAsc),
-          setOfAll.filter(post => post.tags.svet).sort(this.sortAsc),
+          res.data.posts
+            .filter(post => post.tags.santehnika)
+            .sort(this.sortAsc),
+          res.data.posts.filter(post => post.tags.plitka).sort(this.sortAsc),
+          res.data.posts.filter(post => post.tags.parket).sort(this.sortAsc),
+          res.data.posts.filter(post => post.tags.mebel).sort(this.sortAsc),
+          res.data.posts.filter(post => post.tags.kuhni).sort(this.sortAsc),
+          res.data.posts.filter(post => post.tags.svet).sort(this.sortAsc),
         );
         this.setState({
           posts: products,
         });
-        console.log(this.state.posts);
+        console.log('second occurence', products);
       })
       .catch(error => console.log(error));
   }
